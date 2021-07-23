@@ -4,14 +4,8 @@ import { Button } from '@chakra-ui/button';
 import { z } from 'zod';
 import { Heading, VStack } from '@chakra-ui/react';
 
-import {
-  CheckboxField,
-  Form,
-  InputField,
-  TextAreaField,
-  SelectField,
-  ReactSelectField
-} from '../../dist';
+import { CheckboxField, Form, InputField, TextAreaField, SelectField } from '../../dist';
+import { ReactSelectField } from '../../dist/components/ReactSelect';
 
 const options = [
   { value: 'fe', label: 'Front end' },
