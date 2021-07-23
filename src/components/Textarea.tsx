@@ -36,7 +36,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
   );
 });
 
-export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
+export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, _ref) => {
   const { register, formState, errors } = useFormContext();
   const baseName = props.name || 'Unknown name';
   const name = baseName.split('_').join(' ');

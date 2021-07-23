@@ -1,0 +1,74 @@
+{
+  "name": "chakra-form",
+  "description": "React hook form + chakra + react-select",
+  "author": "Fran Zekan",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/chakra-form.esm.js",
+  "scripts": {
+    "dev": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint src test example/pages",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "@chakra-ui/react": ">=1",
+    "@emotion/react": ">=11",
+    "@emotion/styled": ">=11",
+    "framer-motion": ">=2",
+    "next": ">=9",
+    "react": ">=16 || >=0.0.0-experimental-6a589ad71",
+    "react-hook-form": "6",
+    "react-select": ">=4"
+  },
+  "devDependencies": {
+    "@chakra-ui/react": "^1.6.2",
+    "@chakra-ui/system": "^1.6.6",
+    "@emotion/react": "11.4.0",
+    "@emotion/styled": "11.3.0",
+    "@size-limit/preset-small-lib": "^4.6.0",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-select": "^4.0.17",
+    "babel-jest": "^26.3.0",
+    "framer-motion": "4.1.11",
+    "husky": "^4.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "6",
+    "react-select": "^4.3.1",
+    "size-limit": "^4.6.0",
+    "tsdx": "^0.14.0",
+    "tslib": "^2.0.1",
+    "typescript": "^4.2.4",
+    "zod": "^3.5.1"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "size-limit": [
+    {
+      "path": "dist/chakra-form.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/chakra-form.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "dependencies": {}
+}

@@ -21,6 +21,7 @@ export interface FormProps<S extends zAny>
   /** Text to display in the submit button */
   submitText?: string;
   schema?: S;
+  // @ts-ignore
   onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult> | void;
   initialValues?: UseFormOptions<z.infer<S>>['defaultValues'];
 
@@ -31,7 +32,6 @@ export interface FormProps<S extends zAny>
 
 interface OnSubmitResult {
   FORM_ERROR?: string;
-
   [prop: string]: any;
 }
 
@@ -76,7 +76,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
 
   const [formError, setFormError] = useState<string | null>(null);
 
-  const internalOnSubmit = async (values) => {
+  const internalOnSubmit = async (values: z.TypeOf<S>) => {
     const result = (await onSubmit(values)) || {};
     for (const [key, value] of Object.entries(result)) {
       if (key === FORM_ERROR) {

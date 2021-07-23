@@ -1,13 +1,17 @@
 import React from 'react';
 import { NextPage } from 'next';
-
-import { CheckboxField, Form, InputField } from './lib';
 import { Button } from '@chakra-ui/button';
 import { z } from 'zod';
 import { Heading, VStack } from '@chakra-ui/react';
-import { TextAreaField } from './lib/components/Textarea';
-import { SelectField } from './lib/components/Select';
-import { ReactSelectField } from './lib/components/ReactSelect';
+
+import {
+  CheckboxField,
+  Form,
+  InputField,
+  TextAreaField,
+  SelectField,
+  ReactSelectField
+} from '../../dist';
 
 const options = [
   { value: 'fe', label: 'Front end' },

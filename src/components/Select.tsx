@@ -43,7 +43,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) =>
   );
 });
 
-export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
+export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _ref) => {
   const { register, watch, setValue, formState, errors } = useFormContext();
   const baseName = props.name || 'Unknown name';
   const name = baseName.split('_').join(' ');

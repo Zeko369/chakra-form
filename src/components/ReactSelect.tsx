@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect } from 'react';
-import ReactSelect, { Props } from 'react-select';
+import ReactSelect from 'react-select';
 import {
   useToken,
   useColorModeValue,
@@ -19,7 +19,8 @@ export interface ReactSelectFieldProps {
   options: { label: string; value: string }[];
   initialSelected?: string[];
 
-  reactSelectProps?: Props;
+  // TODO: Fix
+  reactSelectProps?: any;
 }
 
 const useColorModeToken = (light: string, dark: string) => {
