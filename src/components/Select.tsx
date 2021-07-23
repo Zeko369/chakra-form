@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
   Select as ChakraSelect,
@@ -8,8 +8,8 @@ import {
   FormErrorMessage,
   FormControlProps
 } from '@chakra-ui/react';
-import { capitalize } from 'lodash';
-import { useEffect } from 'react';
+
+import { capitalize } from '../helpers/string';
 
 export interface SelectProps extends Omit<ChakraSelectProps, 'type'> {
   label?: string;
