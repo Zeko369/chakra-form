@@ -2,7 +2,7 @@ import React from 'react';
 import { FormControl, FormControlProps, FormErrorMessage, FormLabel } from '@chakra-ui/react';
 import { capitalize } from '../helpers/string';
 
-type InputLabelWrapProps = {
+export type InputLabelWrapProps = {
   name: string;
   baseName: string;
 

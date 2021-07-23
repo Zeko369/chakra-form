@@ -52,7 +52,7 @@ const schema = z.object({
     .min(18)
     .max(100),
   job: z.string(),
-  favLanguages: z.array(z.string()),
+  favLanguages: z.array(z.string()).nonempty(),
   interestedInLibrary: z.boolean()
 });
 
@@ -70,7 +70,9 @@ const Home: NextPage = () => {
         age: 21,
         bio: 'Foooooo',
         password: 'password',
-        job: 'fs'
+        job: 'fs',
+        favLanguages: ['js', 'ts'],
+        interestedInLibrary: true
       }}
     >
       <VStack w="50%" mt="2" align="flex-start">
@@ -97,7 +99,7 @@ const Home: NextPage = () => {
         </SelectField>
 
         <ReactSelectField
-          name="favLanguage"
+          name="favLanguages"
           options={languages}
           reactSelectProps={{
             id: 'fav-lang-id',

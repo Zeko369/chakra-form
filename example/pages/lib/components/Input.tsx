@@ -36,10 +36,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   );
 });
 
-export const InputField = forwardRef<
-  HTMLInputElement,
-  InputProps & { validationPattern?: ValidationRule<RegExp> }
->((props, ref) => {
+export type InputFieldProps = InputProps & { validationPattern?: ValidationRule<RegExp> };
+
+export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, ref) => {
   const { register, formState, errors } = useFormContext();
   const baseName = props.name || 'Unknown name';
   const name = baseName.split('_').join(' ');

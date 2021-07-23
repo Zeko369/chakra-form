@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Checkbox } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
-interface CheckboxFieldProps {
+export interface CheckboxFieldProps {
   name: string;
   label?: string | React.ReactNode;
   defaultValue?: boolean;
@@ -17,8 +17,13 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = (props) => {
 
   useEffect(() => {
     register(name);
-    setValue(name, defaultValue || false);
   }, [register, name]);
+
+  useEffect(() => {
+    if (value === undefined) {
+      setValue(name, false);
+    }
+  }, [value]);
 
   return (
     <Checkbox

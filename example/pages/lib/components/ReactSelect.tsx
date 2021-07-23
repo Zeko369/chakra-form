@@ -11,7 +11,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { capitalize } from '../helpers/string';
 
-interface ReactSelectFieldProps {
+export interface ReactSelectFieldProps {
   name: string;
   label?: string;
   noLabel?: boolean;
@@ -40,6 +40,7 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
     const itemBg = useColorModeToken('gray.200', 'gray.600');
     const color = useColorModeToken('gray.900', 'white');
     const highlightColor = useColorModeToken('blue.300', 'gray.900');
+    const errorColor = useColorModeToken('red.500', 'gray.300');
 
     if (!error) {
       error = errors[name]?.join(', ');
@@ -56,7 +57,22 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
           name={name}
           value={options.filter((o) => value.includes(o.value))}
           options={options}
-          styles={{ container: (a) => ({ ...a, width: '100%' }) }}
+          styles={{
+            container: (a) => ({ ...a, width: '100%' }),
+            control: (s) => ({
+              ...s,
+              ...(error
+                ? {
+                    borderWidth: '2px',
+                    borderRadius: '6px',
+                    borderColor: error ? errorColor : s.borderColor,
+                    '&:hover': {
+                      borderColor: error ? errorColor : s.borderColor
+                    }
+                  }
+                : {})
+            })
+          }}
           theme={(t) => ({
             ...t,
             colors: {
@@ -74,7 +90,7 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
                 val.map((v) => v.value)
               );
             } else {
-              setValue(name, val?.value);
+              console.error("Shouldn't be here, isMulti");
             }
           }}
         />
