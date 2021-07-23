@@ -23,7 +23,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = (props) => {
     if (value === undefined) {
       setValue(name, false);
     }
-  }, [value]);
+  }, [value, name, setValue]);
 
   return (
     <Checkbox

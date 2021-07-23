@@ -85,14 +85,9 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
             }
           })}
           onChange={(val) => {
-            if (Array.isArray(val)) {
-              setValue(
-                name,
-                val.map((v) => v.value)
-              );
-            } else {
-              console.error("Shouldn't be here, isMulti");
-            }
+            // @ts-ignore
+            // prettier-ignore
+            setValue(name, val.map((v) => v.value));
           }}
         />
         <FormErrorMessage>{error}</FormErrorMessage>

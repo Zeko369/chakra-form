@@ -6,11 +6,7 @@ export interface CondWrapProps {
   Wrap: (children: React.ReactNode | null | undefined) => JSX.Element | null;
 }
 
-export const ConditionalWrap: React.FC<CondWrapProps> = ({
-  val,
-  Wrap,
-  children
-}) => {
+export const ConditionalWrap: React.FC<CondWrapProps> = ({ val, Wrap, children }) => {
   if (!!val) {
     return Wrap(children);
   }
