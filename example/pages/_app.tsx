@@ -1,11 +1,13 @@
 import React from 'react';
 import { AppProps } from 'next/app';
-import { ChakraProvider } from '@chakra-ui/react';
+import { Box, ChakraProvider } from '@chakra-ui/react';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ChakraProvider resetCSS>
-      <Component {...pageProps} />
+      <Box pb="10">
+        <Component {...pageProps} />
+      </Box>
     </ChakraProvider>
   );
 };

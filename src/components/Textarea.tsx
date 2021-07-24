@@ -44,9 +44,10 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
 });
 
 export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, _ref) => {
-  const { register, formState, errors } = useFormContext();
+  const { register, formState } = useFormContext();
   const baseName = props.name || 'Unknown name';
   const name = baseName.split('_').join(' ');
+  const { errors } = formState;
 
   const error = Array.isArray(errors[name])
     ? errors[name].join(', ')
@@ -55,10 +56,9 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaProps>((pro
   return (
     <TextArea
       {...props}
-      name={baseName}
       outerProps={{ isDisabled: formState.isSubmitting }}
       error={error}
-      ref={register()}
+      {...register(baseName)}
     />
   );
 });

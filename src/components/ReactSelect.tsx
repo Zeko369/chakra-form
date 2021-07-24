@@ -30,7 +30,7 @@ const useColorModeToken = (light: string, dark: string) => {
 
 export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
   ({ name, label, noLabel, error, options, initialSelected, reactSelectProps }, ref) => {
-    const { register, setValue, watch, errors } = useFormContext();
+    const { register, setValue, watch, formState } = useFormContext();
     const value = watch(name) || [];
 
     useEffect(() => {
@@ -44,7 +44,10 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
     const errorColor = useColorModeToken('red.500', 'gray.300');
 
     if (!error) {
-      error = errors[name]?.join(', ');
+      const { errors } = formState;
+      error = Array.isArray(errors[name])
+        ? errors[name].join(', ')
+        : errors[name]?.message || errors[name];
     }
 
     return (

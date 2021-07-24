@@ -44,9 +44,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) =>
 });
 
 export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _ref) => {
-  const { register, watch, setValue, formState, errors } = useFormContext();
+  const { register, watch, setValue, formState } = useFormContext();
   const baseName = props.name || 'Unknown name';
   const name = baseName.split('_').join(' ');
+  const { errors } = formState;
 
   const error = Array.isArray(errors[name])
     ? errors[name].join(', ')
@@ -68,7 +69,6 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _r
       name={baseName}
       outerProps={{ isDisabled: formState.isSubmitting }}
       error={error}
-      // ref={register()}
       value={value}
       onChange={(e) => setValue(baseName, e.target.value)}
     />

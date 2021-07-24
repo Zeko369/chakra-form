@@ -46,9 +46,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 export type InputFieldProps = InputProps & { validationPattern?: ValidationRule<RegExp> };
 
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, _ref) => {
-  const { register, formState, errors } = useFormContext();
+  const { register, formState } = useFormContext();
   const baseName = props.name || 'Unknown name';
   const name = baseName.split('_').join(' ');
+  const { errors } = formState;
 
   const error = Array.isArray(errors[name])
     ? errors[name].join(', ')
@@ -60,10 +61,9 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, 
     <Input
       {...rest}
       label={label || children}
-      name={baseName}
       outerProps={{ isDisabled: formState.isSubmitting }}
       error={error}
-      ref={register({
+      {...register(baseName, {
         pattern: props.validationPattern,
         // valueAsNumber: true
         setValueAs: (val) => {

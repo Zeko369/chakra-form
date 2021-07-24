@@ -1,4 +1,3 @@
-import { Alert, AlertIcon, AlertTitle, Button, Flex, StackProps, VStack } from '@chakra-ui/react';
 import React, {
   ForwardedRef,
   forwardRef,
@@ -8,9 +7,11 @@ import React, {
   useImperativeHandle,
   useState
 } from 'react';
-import { FormProvider, useForm, UseFormMethods, UseFormOptions } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider, useForm, UseFormProps, UseFormReturn } from 'react-hook-form';
+import { Alert, AlertIcon, AlertTitle, Button, Flex, StackProps, VStack } from '@chakra-ui/react';
 import { z } from 'zod';
-import { ConditionalWrap } from './components/utils/ConditionalWrap';
+import ConditionalWrap from 'conditional-wrap';
 
 type zAny = z.ZodType<any, any>;
 
@@ -23,7 +24,7 @@ export interface FormProps<S extends zAny>
   schema?: S;
   // @ts-ignore
   onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult> | void;
-  initialValues?: UseFormOptions<z.infer<S>>['defaultValues'];
+  initialValues?: UseFormProps<z.infer<S>>['defaultValues'];
 
   wrapProps?: StackProps;
   buttonCenter?: boolean;
@@ -36,7 +37,7 @@ interface OnSubmitResult {
 }
 
 export const FORM_ERROR = 'FORM_ERROR';
-export type FormHandler<S extends zAny> = UseFormMethods<z.infer<S>>;
+export type FormHandler<S extends zAny> = UseFormReturn<z.infer<S>>;
 
 const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<FormHandler<S>>) => {
   const {
@@ -53,22 +54,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
 
   const ctx = useForm<z.infer<S>>({
     mode: 'onBlur',
-    // @ts-ignore
-    resolver: (values) => {
-      // console.log(values);
-      if (schema) {
-        const res = schema.safeParse(values);
-
-        console.log(values);
-
-        if (res.success === false) {
-          console.log(res.error.formErrors.formErrors);
-          console.log(JSON.stringify(res.error.formErrors.fieldErrors, null, 2));
-          return { values: {}, errors: res.error.formErrors?.fieldErrors };
-        }
-      }
-      return { values, errors: {} };
-    },
+    resolver: schema ? zodResolver(schema) : undefined,
     defaultValues: initialValues
   });
 
@@ -106,32 +92,34 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
         {...rest}
       >
         <ConditionalWrap
-          val={!noWrap}
-          Wrap={(children) => <VStack {...wrapProps}>{children}</VStack>}
+          condition={!noWrap}
+          wrap={(children) => <VStack {...wrapProps}>{children}</VStack>}
         >
-          {children}
+          <>
+            {children}
 
-          {formError && (
-            <Alert status="error" role="alert">
-              <AlertIcon />
-              <AlertTitle>{formError}</AlertTitle>
-            </Alert>
-          )}
+            {formError && (
+              <Alert status="error" role="alert">
+                <AlertIcon />
+                <AlertTitle>{formError}</AlertTitle>
+              </Alert>
+            )}
 
-          {submitText && (
-            <ConditionalWrap
-              val={buttonCenter}
-              Wrap={(children) => (
-                <Flex w="full" justify="center">
-                  {children}
-                </Flex>
-              )}
-            >
-              <Button type="submit" disabled={ctx.formState.isSubmitting}>
-                {submitText}
-              </Button>
-            </ConditionalWrap>
-          )}
+            {submitText && (
+              <ConditionalWrap
+                condition={!!buttonCenter}
+                wrap={(children) => (
+                  <Flex w="full" justify="center">
+                    {children}
+                  </Flex>
+                )}
+              >
+                <Button type="submit" disabled={ctx.formState.isSubmitting}>
+                  {submitText}
+                </Button>
+              </ConditionalWrap>
+            )}
+          </>
         </ConditionalWrap>
       </form>
     </FormProvider>
