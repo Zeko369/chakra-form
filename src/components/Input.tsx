@@ -19,7 +19,14 @@ export interface InputProps extends Omit<ChakraInputProps, 'type'> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { name: baseName = 'Input Field', label, placeholder, outerProps, ...rest } = props;
+  const {
+    name: baseName = 'Input Field',
+    label,
+    placeholder,
+    outerProps,
+    noLabel,
+    ...rest
+  } = props;
   const name = baseName.split('_').join(' ');
 
   return (

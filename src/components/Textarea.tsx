@@ -19,7 +19,14 @@ export interface TextAreaProps extends ChakraTextareaProps {
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
-  const { name: baseName = 'TextAreaField Field', label, placeholder, outerProps, ...rest } = props;
+  const {
+    name: baseName = 'TextAreaField Field',
+    label,
+    placeholder,
+    outerProps,
+    noLabel,
+    ...rest
+  } = props;
   const name = baseName.split('_').join(' ');
 
   return (
