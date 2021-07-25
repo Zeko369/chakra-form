@@ -57,31 +57,42 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, 
 
   const { children, label, ...rest } = props;
 
+  // TODO: Handle this better
+  const hfProps = register(baseName, {
+    pattern: props.validationPattern,
+    // valueAsNumber: true
+    setValueAs: (val) => {
+      if (!val) {
+        return undefined;
+      }
+
+      if (props.type === 'number') {
+        if (val.length === 0 && !props.isRequired) {
+          return undefined;
+        }
+
+        return parseFloat(val);
+      }
+
+      return val;
+    }
+  });
+
   return (
     <Input
       {...rest}
       label={label || children}
       outerProps={{ isDisabled: formState.isSubmitting }}
       error={error}
-      {...register(baseName, {
-        pattern: props.validationPattern,
-        // valueAsNumber: true
-        setValueAs: (val) => {
-          if (!val) {
-            return undefined;
-          }
-
-          if (props.type === 'number') {
-            if (val.length === 0 && !props.isRequired) {
-              return undefined;
+      {...hfProps}
+      {...(rest.onChange
+        ? {
+            onChange: (e) => {
+              rest.onChange?.(e);
+              hfProps.onChange(e);
             }
-
-            return parseFloat(val);
           }
-
-          return val;
-        }
-      })}
+        : {})}
     />
   );
 });
