@@ -67,6 +67,10 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, 
         pattern: props.validationPattern,
         // valueAsNumber: true
         setValueAs: (val) => {
+          if (!val) {
+            return undefined;
+          }
+
           if (props.type === 'number') {
             if (val.length === 0 && !props.isRequired) {
               return undefined;
