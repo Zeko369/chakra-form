@@ -74,6 +74,10 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, 
         return parseFloat(val);
       }
 
+      if (props.type === 'date') {
+        return new Date(val);
+      }
+
       return val;
     }
   });
