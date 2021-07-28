@@ -20,7 +20,7 @@ export interface SelectProps extends Omit<ChakraSelectProps, 'type'> {
   outerProps?: FormControlProps;
 }
 
-export const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(({ noLabel, ...props }, ref) => {
   const {
     name: baseName = 'Select field',
     isInvalid,
@@ -28,7 +28,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) =>
     label,
     placeholder,
     outerProps,
-    noLabel,
     ...rest
   } = props;
 

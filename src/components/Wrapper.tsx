@@ -15,8 +15,8 @@ export type InputLabelWrapProps = {
   error?: string;
 };
 
-export const InputLabelWrap: React.FC<InputLabelWrapProps> = (props) => {
-  const { noLabel, outerProps, baseName, label, name, error, isInvalid, isRequired } = props;
+export const InputLabelWrap: React.FC<InputLabelWrapProps> = ({ noLabel, ...props }) => {
+  const { outerProps, baseName, label, name, error, isInvalid, isRequired } = props;
 
   return (
     <FormControl isInvalid={isInvalid || !!error} isRequired={isRequired} {...outerProps}>

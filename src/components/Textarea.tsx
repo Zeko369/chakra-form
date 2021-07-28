@@ -18,30 +18,31 @@ export interface TextAreaProps extends ChakraTextareaProps {
   outerProps?: FormControlProps;
 }
 
-export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
-  const {
-    name: baseName = 'TextAreaField Field',
-    label,
-    placeholder,
-    outerProps,
-    noLabel,
-    ...rest
-  } = props;
-  const name = baseName.split('_').join(' ');
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  ({ noLabel, ...props }, ref) => {
+    const {
+      name: baseName = 'TextAreaField Field',
+      label,
+      placeholder,
+      outerProps,
+      ...rest
+    } = props;
+    const name = baseName.split('_').join(' ');
 
-  return (
-    <InputLabelWrap {...props} baseName={baseName} name={name}>
-      <ChakraTextarea
-        type={resoleType(baseName)}
-        id={baseName}
-        name={baseName}
-        ref={ref}
-        placeholder={placeholder || (typeof label === 'string' && label) || capitalize(name)}
-        {...rest}
-      />
-    </InputLabelWrap>
-  );
-});
+    return (
+      <InputLabelWrap {...props} baseName={baseName} name={name}>
+        <ChakraTextarea
+          type={resoleType(baseName)}
+          id={baseName}
+          name={baseName}
+          ref={ref}
+          placeholder={placeholder || (typeof label === 'string' && label) || capitalize(name)}
+          {...rest}
+        />
+      </InputLabelWrap>
+    );
+  }
+);
 
 export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, _ref) => {
   const { register, formState } = useFormContext();
