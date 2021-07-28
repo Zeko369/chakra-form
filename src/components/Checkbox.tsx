@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Checkbox } from '@chakra-ui/react';
+import { Checkbox, CheckboxProps } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
-export interface CheckboxFieldProps {
+export interface CheckboxFieldProps extends Omit<CheckboxProps, 'defaultValue'> {
   name: string;
   label?: string | React.ReactNode;
   defaultValue?: boolean;
@@ -11,7 +11,7 @@ export interface CheckboxFieldProps {
 export { Checkbox };
 
 export const CheckboxField: React.FC<CheckboxFieldProps> = (props) => {
-  const { name, label, children, defaultValue } = props;
+  const { name, label, children, defaultValue, ...rest } = props;
   const { register, setValue, watch } = useFormContext();
   const value = watch(name);
 
@@ -25,11 +25,16 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = (props) => {
     }
   }, [value, name, setValue]);
 
+  // hack fix this
   return (
     <Checkbox
       defaultChecked={defaultValue || false}
       isChecked={value}
-      onChange={(e) => setValue(name, e.target.checked)}
+      {...rest}
+      onChange={(e) => {
+        setValue(name, e.target.checked);
+        rest.onChange?.(e);
+      }}
     >
       {label || children || name}
     </Checkbox>
