@@ -22,7 +22,7 @@
     "@emotion/styled": ">=11",
     "framer-motion": ">=2",
     "react": ">=16 || >=0.0.0-experimental-6a589ad71",
-    "react-hook-form": "6",
+    "react-hook-form": "~7",
     "react-select": ">=4"
   },
   "dependencies": {

@@ -23,7 +23,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({ noLabel, ...pro
   const name = baseName.split('_').join(' ');
 
   return (
-    <InputLabelWrap {...props} baseName={baseName} name={name}>
+    <InputLabelWrap {...props} noLabel={noLabel} baseName={baseName} name={name}>
       <ChakraInput
         type={resoleType(baseName)}
         id={baseName}

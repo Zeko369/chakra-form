@@ -30,7 +30,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const name = baseName.split('_').join(' ');
 
     return (
-      <InputLabelWrap {...props} baseName={baseName} name={name}>
+      <InputLabelWrap {...props} noLabel={noLabel} baseName={baseName} name={name}>
         <ChakraTextarea
           type={resoleType(baseName)}
           id={baseName}
