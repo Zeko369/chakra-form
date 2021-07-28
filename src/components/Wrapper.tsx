@@ -15,7 +15,7 @@ export type InputLabelWrapProps = {
   error?: string;
 };
 
-export const InputLabelWrap: React.FC<InputLabelWrapProps> = ({ noLabel, ...props }) => {
+export const InputLabelWrap: React.FC<InputLabelWrapProps> = ({ noLabel = false, ...props }) => {
   const { outerProps, baseName, label, name, error, isInvalid, isRequired } = props;
 
   return (
