@@ -17,6 +17,7 @@ export interface ReactSelectFieldProps {
   noLabel?: boolean;
   error?: string;
   options: { label: string; value: string }[];
+  // FIXME: deprecate
   initialSelected?: string[];
 
   isRequired?: boolean;
@@ -41,7 +42,7 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>((props, r
 
   useEffect(() => {
     register(name);
-  }, [name, initialSelected, setValue, register]);
+  }, [name, props.initialSelected, setValue, register]);
 
   const bg = useColorModeToken('white', 'gray.800');
   const itemBg = useColorModeToken('gray.200', 'gray.600');
