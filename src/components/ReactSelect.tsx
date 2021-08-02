@@ -95,8 +95,7 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
           })}
           onChange={(val) => {
             if (isSingle) {
-              // @ts-ignore
-              setValue(name, val);
+              setValue(name, val?.value);
             } else {
               // @ts-ignore
               // prettier-ignore
