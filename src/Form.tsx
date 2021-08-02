@@ -9,7 +9,16 @@ import React, {
 } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm, UseFormProps, UseFormReturn } from 'react-hook-form';
-import { Alert, AlertIcon, AlertTitle, Button, Flex, StackProps, VStack } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  Button,
+  ButtonProps,
+  Flex,
+  StackProps,
+  VStack
+} from '@chakra-ui/react';
 import { z } from 'zod';
 import ConditionalWrap from 'conditional-wrap';
 
@@ -21,6 +30,8 @@ export interface FormProps<S extends zAny>
   children?: ReactNode;
   /** Text to display in the submit button */
   submitText?: string;
+  submitButtonProps?: ButtonProps;
+
   schema?: S;
   // @ts-ignore
   onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult> | void;
@@ -51,6 +62,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
     initialValues,
     onSubmit,
     wrapProps,
+    submitButtonProps,
     buttonCenter,
     noWrap,
     ...rest
@@ -118,7 +130,12 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
                   </Flex>
                 )}
               >
-                <Button type="submit" disabled={ctx.formState.isSubmitting}>
+                <Button
+                  type="submit"
+                  disabled={ctx.formState.isSubmitting}
+                  colorScheme="blue"
+                  {...submitButtonProps}
+                >
                   {submitText}
                 </Button>
               </ConditionalWrap>
