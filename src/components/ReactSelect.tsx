@@ -21,6 +21,8 @@ export interface ReactSelectFieldProps {
 
   // TODO: Fix
   reactSelectProps?: any;
+  // TODO: Somehow make this smarter
+  isSingle: boolean;
 }
 
 const useColorModeToken = (light: string, dark: string) => {
@@ -29,7 +31,10 @@ const useColorModeToken = (light: string, dark: string) => {
 };
 
 export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
-  ({ name, label, noLabel, error, options, initialSelected, reactSelectProps }, ref) => {
+  (
+    { name, label, noLabel, error, options, initialSelected, isSingle = true, reactSelectProps },
+    ref
+  ) => {
     const { register, setValue, watch, formState } = useFormContext();
     const value = watch(name) || [];
 
@@ -56,7 +61,7 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
         <ReactSelect
           id={name}
           {...reactSelectProps}
-          isMulti // by default is multi
+          isMulti={isSingle} // by default is multi
           ref={ref}
           name={name}
           value={options.filter((o) => value.includes(o.value))}
