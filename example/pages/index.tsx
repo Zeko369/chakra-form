@@ -8,9 +8,9 @@ import {
   CheckboxField,
   Form,
   InputField,
-  TextAreaField,
+  ReactSelectField,
   SelectField,
-  ReactSelectField
+  TextAreaField
 } from '../../dist';
 
 const options = [
@@ -57,6 +57,7 @@ const schema = z.object({
     .max(100),
   job: z.string(),
   favLanguages: z.array(z.string()).nonempty(),
+  isSingle: z.string(),
   interestedInLibrary: z.boolean()
 });
 
@@ -75,6 +76,7 @@ const Home: NextPage = () => {
         bio: 'Foooooo',
         password: 'password',
         job: 'fs',
+        isSingle: 'fs',
         favLanguages: ['js', 'ts'],
         interestedInLibrary: true
       }}
@@ -108,6 +110,16 @@ const Home: NextPage = () => {
           reactSelectProps={{
             id: 'fav-lang-id',
             instanceId: 'fav-lang-id'
+          }}
+        />
+
+        <ReactSelectField
+          isSingle
+          name="isSingle"
+          options={options}
+          reactSelectProps={{
+            id: 'single-id',
+            instanceId: 'single-id'
           }}
         />
 

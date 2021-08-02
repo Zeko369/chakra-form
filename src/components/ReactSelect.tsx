@@ -1,11 +1,11 @@
 import React, { forwardRef, useEffect } from 'react';
 import ReactSelect from 'react-select';
 import {
-  useToken,
-  useColorModeValue,
   FormControl,
   FormErrorMessage,
-  FormLabel
+  FormLabel,
+  useColorModeValue,
+  useToken
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
@@ -21,8 +21,8 @@ export interface ReactSelectFieldProps {
 
   // TODO: Fix
   reactSelectProps?: any;
-  // TODO: Somehow make this smarter
-  isSingle: boolean;
+  // TODO: Somehow make this smarter (generic)
+  isSingle?: boolean;
 }
 
 const useColorModeToken = (light: string, dark: string) => {
@@ -31,10 +31,7 @@ const useColorModeToken = (light: string, dark: string) => {
 };
 
 export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
-  (
-    { name, label, noLabel, error, options, initialSelected, isSingle = true, reactSelectProps },
-    ref
-  ) => {
+  ({ name, label, noLabel, error, options, initialSelected, isSingle, reactSelectProps }, ref) => {
     const { register, setValue, watch, formState } = useFormContext();
     const value = watch(name) || [];
 
@@ -61,10 +58,14 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
         <ReactSelect
           id={name}
           {...reactSelectProps}
-          isMulti={isSingle} // by default is multi
+          isMulti={isSingle === true ? false : true} // by default is multi
           ref={ref}
           name={name}
-          value={options.filter((o) => value.includes(o.value))}
+          value={
+            isSingle
+              ? options.find((o) => o.value === value)
+              : options.filter((o) => value.includes(o.value))
+          }
           options={options}
           styles={{
             container: (a) => ({ ...a, width: '100%' }),
@@ -93,9 +94,14 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>(
             }
           })}
           onChange={(val) => {
-            // @ts-ignore
-            // prettier-ignore
-            setValue(name, val.map((v) => v.value));
+            if (isSingle) {
+              // @ts-ignore
+              setValue(name, val);
+            } else {
+              // @ts-ignore
+              // prettier-ignore
+              setValue(name, val.map((v) => v.value));
+            }
           }}
         />
         <FormErrorMessage>{error}</FormErrorMessage>
