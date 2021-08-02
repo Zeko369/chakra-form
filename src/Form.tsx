@@ -39,6 +39,10 @@ interface OnSubmitResult {
 export const FORM_ERROR = 'FORM_ERROR';
 export type FormHandler<S extends zAny> = UseFormReturn<z.infer<S>>;
 
+// TODO: Add beforeParse hook to check for verbose error
+// TODO: Add print whole error
+// TODO: Simpler way of getting getValues (instead of useRef)
+
 const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<FormHandler<S>>) => {
   const {
     children,
