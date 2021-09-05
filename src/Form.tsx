@@ -40,6 +40,9 @@ export interface FormProps<S extends zAny>
   wrapProps?: StackProps;
   buttonCenter?: boolean;
   noWrap?: boolean;
+
+  // TODO: Document
+  verbose?: boolean;
 }
 
 interface OnSubmitResult {
@@ -65,12 +68,22 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
     submitButtonProps,
     buttonCenter,
     noWrap,
+    verbose,
     ...rest
   } = props;
 
   const ctx = useForm<z.infer<S>>({
     mode: 'onBlur',
-    resolver: schema ? zodResolver(schema) : undefined,
+    resolver: schema
+      ? async (...args) => {
+          const res = await zodResolver(schema)(...args);
+          if (verbose) {
+            console.log('ChakraForm: RESOLVER', res);
+          }
+
+          return res;
+        }
+      : undefined,
     defaultValues: initialValues
   });
 
