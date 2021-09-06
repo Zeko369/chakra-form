@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
   FormControlProps,
+  FormLabelProps,
   Textarea as ChakraTextarea,
   TextareaProps as ChakraTextareaProps
 } from '@chakra-ui/react';
@@ -16,6 +17,7 @@ export interface TextAreaProps extends ChakraTextareaProps {
   error?: string;
   name?: string;
   outerProps?: FormControlProps;
+  labelProps?: FormLabelProps;
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
@@ -25,12 +27,19 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       label,
       placeholder,
       outerProps,
+      labelProps,
       ...rest
     } = props;
     const name = baseName.split('_').join(' ');
 
     return (
-      <InputLabelWrap {...props} noLabel={noLabel} baseName={baseName} name={name}>
+      <InputLabelWrap
+        {...props}
+        labelProps={labelProps}
+        noLabel={noLabel}
+        baseName={baseName}
+        name={name}
+      >
         <ChakraTextarea
           type={resoleType(baseName)}
           id={baseName}

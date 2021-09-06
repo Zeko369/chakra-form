@@ -6,7 +6,8 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormControlProps
+  FormControlProps,
+  FormLabelProps
 } from '@chakra-ui/react';
 
 import { capitalize } from '../helpers/string';
@@ -18,6 +19,7 @@ export interface SelectProps extends Omit<ChakraSelectProps, 'type'> {
   name?: string;
   placeholder?: string;
   outerProps?: FormControlProps;
+  labelProps?: FormLabelProps;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(({ noLabel, ...props }, ref) => {
@@ -28,6 +30,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({ noLabel, ...
     label,
     placeholder,
     outerProps,
+    labelProps,
     ...rest
   } = props;
 
@@ -35,7 +38,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({ noLabel, ...
 
   return (
     <FormControl isInvalid={isInvalid || !!props.error} isRequired={isRequired} {...outerProps}>
-      {!noLabel && <FormLabel htmlFor={baseName}>{label || capitalize(name)}</FormLabel>}
+      {!noLabel && (
+        <FormLabel htmlFor={baseName} {...labelProps}>
+          {label || capitalize(name)}
+        </FormLabel>
+      )}
       <ChakraSelect id={baseName} name={baseName} ref={ref} placeholder={placeholder} {...rest} />
       <FormErrorMessage>{props.error}</FormErrorMessage>
     </FormControl>

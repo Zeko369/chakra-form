@@ -3,7 +3,8 @@ import { useFormContext, ValidationRule } from 'react-hook-form';
 import {
   Input as ChakraInput,
   InputProps as ChakraInputProps,
-  FormControlProps
+  FormControlProps,
+  FormLabelProps
 } from '@chakra-ui/react';
 import { InputLabelWrap } from './Wrapper';
 import { capitalize } from '../helpers/string';
@@ -16,14 +17,28 @@ export interface InputProps extends Omit<ChakraInputProps, 'type'> {
   name?: string;
   type?: AllowedTypes | string;
   outerProps?: FormControlProps;
+  labelProps?: FormLabelProps;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ noLabel, ...props }, ref) => {
-  const { name: baseName = 'Input Field', label, placeholder, outerProps, ...rest } = props;
+  const {
+    name: baseName = 'Input Field',
+    label,
+    placeholder,
+    outerProps,
+    labelProps,
+    ...rest
+  } = props;
   const name = baseName.split('_').join(' ');
 
   return (
-    <InputLabelWrap {...props} noLabel={noLabel} baseName={baseName} name={name}>
+    <InputLabelWrap
+      {...props}
+      labelProps={labelProps}
+      noLabel={noLabel}
+      baseName={baseName}
+      name={name}
+    >
       <ChakraInput
         type={resoleType(baseName)}
         id={baseName}
