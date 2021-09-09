@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { useFormContext, ValidationRule } from 'react-hook-form';
+import { RegisterOptions, useFormContext, ValidationRule } from 'react-hook-form';
 import {
   Input as ChakraInput,
   InputProps as ChakraInputProps,
@@ -51,7 +51,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({ noLabel, ...pro
   );
 });
 
-export type InputFieldProps = InputProps & { validationPattern?: ValidationRule<RegExp> };
+export type InputFieldProps = InputProps & {
+  validationPattern?: ValidationRule<RegExp>;
+  registerProps?: RegisterOptions;
+};
 
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, _ref) => {
   const { register, formState } = useFormContext();
@@ -63,7 +66,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, 
     ? errors[name].join(', ')
     : errors[name]?.message || errors[name];
 
-  const { children, label, ...rest } = props;
+  const { children, label, registerProps, ...rest } = props;
 
   // TODO: Handle this better
   const hfProps = register(baseName, {
@@ -87,7 +90,8 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, 
       }
 
       return val;
-    }
+    },
+    ...registerProps
   });
 
   return (
