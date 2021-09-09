@@ -46,7 +46,7 @@ export interface FormProps<S extends zAny>
 }
 
 export interface OnSubmitResult {
-  FORM_ERROR?: string;
+  FORM_ERROR?: string | null | false | React.ReactNode;
   [prop: string]: any;
 }
 
@@ -89,7 +89,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
 
   useImperativeHandle(ref, () => ({ ...ctx }));
 
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<OnSubmitResult['FORM_ERROR']>(null);
 
   const internalOnSubmit = async (values: z.TypeOf<S>) => {
     const result = (await onSubmit(values)) || {};
