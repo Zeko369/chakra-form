@@ -45,7 +45,7 @@ export interface FormProps<S extends zAny>
   verbose?: boolean;
 }
 
-interface OnSubmitResult {
+export interface OnSubmitResult {
   FORM_ERROR?: string;
   [prop: string]: any;
 }

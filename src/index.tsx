@@ -1,5 +1,5 @@
 export { Form, FORM_ERROR } from './Form';
-export { FormProps, FormHandler } from './Form';
+export { FormProps, FormHandler, OnSubmitResult } from './Form';
 
 export { Checkbox, CheckboxField } from './components/Checkbox';
 export { CheckboxFieldProps } from './components/Checkbox';
