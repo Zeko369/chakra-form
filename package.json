@@ -9,6 +9,7 @@
   "module": "dist/chakra-form.esm.js",
   "scripts": {
     "dev": "tsdx watch",
+    "both": "concurrently \"yarn dev\" \"cd example && yarn dev\"",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src test example/pages",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-select": "^4.0.17",
     "babel-jest": "^26.3.0",
+    "concurrently": "^6.2.1",
     "framer-motion": "4.1.11",
     "husky": "^4.3.0",
     "np": "^7.5.0",

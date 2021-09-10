@@ -1,8 +1,8 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { Button } from '@chakra-ui/button';
+import { Heading, VStack, Button, Code } from '@chakra-ui/react';
+import { useUNSTABLE_Alert } from 'chakra-confirm';
 import { z } from 'zod';
-import { Heading, VStack } from '@chakra-ui/react';
 
 import {
   CheckboxField,
@@ -10,7 +10,8 @@ import {
   InputField,
   ReactSelectField,
   SelectField,
-  TextAreaField
+  TextAreaField,
+  ToggleField
 } from '../../dist';
 
 const options = [
@@ -58,15 +59,25 @@ const schema = z.object({
   job: z.string(),
   favLanguages: z.array(z.string()).nonempty(),
   isSingle: z.string(),
-  interestedInLibrary: z.boolean()
+  interestedInLibrary: z.boolean(),
+  interestedInLibrary2: z.boolean()
 });
 
 const Home: NextPage = () => {
+  const alert = useUNSTABLE_Alert();
+
   return (
     <Form
       schema={schema}
       onSubmit={(data) => {
-        console.log(data);
+        alert({
+          title: 'Submitted data',
+          body: (
+            <Code whiteSpace="pre" w="full">
+              {JSON.stringify(data, null, 2)}
+            </Code>
+          )
+        });
       }}
       initialValues={{
         name: 'Foo',
@@ -124,6 +135,8 @@ const Home: NextPage = () => {
         />
 
         <CheckboxField name="interestedInLibrary" label="Are you interested in this library" />
+
+        <ToggleField name="interestedInLibrary2" label="Are you sure?" />
 
         <Button type="submit">Submit</Button>
       </VStack>

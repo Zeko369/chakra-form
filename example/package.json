@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.1",
+    "chakra-confirm": "^1.0.11",
     "next": "^10.1.3",
     "react-select": "^4.3.1"
   }
