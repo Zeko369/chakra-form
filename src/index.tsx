@@ -1,8 +1,11 @@
 export { Form, FORM_ERROR } from './Form';
 export { FormProps, FormHandler, OnSubmitResult } from './Form';
 
-export { Checkbox, CheckboxField } from './components/Checkbox';
-export { CheckboxFieldProps } from './components/Checkbox';
+export { Checkbox, CheckboxField } from './components/Boolean/Checkbox';
+export { CheckboxFieldProps } from './components/Boolean/Checkbox';
+
+export { Toggle, ToggleField } from './components/Boolean/Toggle';
+export { ToggleFieldProps } from './components/Boolean/Toggle';
 
 export { Input, InputField } from './components/Input';
 export { InputProps, InputFieldProps } from './components/Input';
