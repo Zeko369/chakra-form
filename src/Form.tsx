@@ -153,7 +153,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
                   {buttonsLeft}
                   <Button
                     type="submit"
-                    disabled={ctx.formState.isSubmitting}
+                    isLoading={ctx.formState.isSubmitting}
                     colorScheme="blue"
                     {...submitButtonProps}
                   >
