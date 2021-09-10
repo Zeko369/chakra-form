@@ -22,17 +22,51 @@ export type InputLabelWrapProps = {
   error?: string;
 };
 
-export const InputLabelWrap: React.FC<InputLabelWrapProps> = ({ noLabel = false, ...props }) => {
+interface SwapPropsProps {
+  a: React.ReactNode;
+  b: React.ReactNode;
+  swap?: boolean;
+}
+
+const SwapProps: React.FC<SwapPropsProps> = ({ a, b, swap }) => {
+  if (swap) {
+    return (
+      <>
+        {b}
+        {a}
+      </>
+    );
+  }
+
+  return (
+    <>
+      {a}
+      {b}
+    </>
+  );
+};
+
+export const InputLabelWrap: React.FC<InputLabelWrapProps & { swapProps?: boolean }> = ({
+  noLabel = false,
+  swapProps = false,
+  ...props
+}) => {
   const { outerProps, baseName, label, name, error, isInvalid, isRequired, labelProps } = props;
 
   return (
     <FormControl isInvalid={isInvalid || !!error} isRequired={isRequired} {...outerProps}>
-      {!noLabel && (
-        <FormLabel htmlFor={baseName} {...labelProps}>
-          {label || capitalize(name)}
-        </FormLabel>
-      )}
-      {props.children}
+      <SwapProps
+        swap={swapProps}
+        a={
+          !noLabel && (
+            <FormLabel htmlFor={baseName} {...labelProps}>
+              {label || capitalize(name)}
+            </FormLabel>
+          )
+        }
+        b={props.children}
+      />
+
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
   );

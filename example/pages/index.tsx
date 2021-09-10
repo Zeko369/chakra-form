@@ -60,7 +60,9 @@ const schema = z.object({
   favLanguages: z.array(z.string()).nonempty(),
   isSingle: z.string(),
   interestedInLibrary: z.boolean(),
-  interestedInLibrary2: z.boolean()
+  interestedInLibrary1: z.boolean(),
+  interestedInLibrary2: z.boolean(),
+  interestedInLibrary3: z.boolean()
 });
 
 const Home: NextPage = () => {
@@ -89,7 +91,8 @@ const Home: NextPage = () => {
         job: 'fs',
         isSingle: 'fs',
         favLanguages: ['js', 'ts'],
-        interestedInLibrary: true
+        interestedInLibrary: true,
+        interestedInLibrary1: false
       }}
     >
       <VStack w="50%" mt="2" align="flex-start">
@@ -134,9 +137,23 @@ const Home: NextPage = () => {
           }}
         />
 
-        <CheckboxField name="interestedInLibrary" label="Are you interested in this library" />
+        <CheckboxField
+          name="interestedInLibrary"
+          label="Are you interested in this library"
+          labelProps={{ fontWeight: 'normal' }}
+        />
+        <CheckboxField
+          name="interestedInLibrary1"
+          label="Are you interested in this library"
+          swap
+        />
 
-        <ToggleField name="interestedInLibrary2" label="Are you sure?" />
+        <ToggleField
+          name="interestedInLibrary2"
+          label="Are you sure?"
+          labelProps={{ fontWeight: 'normal' }}
+        />
+        <ToggleField name="interestedInLibrary3" label="Are you sure?" swap />
 
         <Button type="submit">Submit</Button>
       </VStack>

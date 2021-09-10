@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
+import { SwitchProps } from '@chakra-ui/switch';
 import { useFormContext } from 'react-hook-form';
 
 export const useBooleanForm = (
   name: string,
   rest: { defaultValue?: boolean; onChange?: (e: React.ChangeEvent<HTMLInputElement>) => unknown }
-) => {
+): Pick<SwitchProps, 'defaultChecked' | 'isChecked' | 'onChange'> => {
   const { register, setValue, watch } = useFormContext();
   const value = watch(name);
 
