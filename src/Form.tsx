@@ -16,6 +16,7 @@ import {
   Button,
   ButtonProps,
   Flex,
+  HStack,
   StackProps,
   VStack
 } from '@chakra-ui/react';
@@ -40,6 +41,9 @@ export interface FormProps<S extends zAny>
   wrapProps?: StackProps;
   buttonCenter?: boolean;
   noWrap?: boolean;
+
+  buttonsLeft?: React.ReactNode;
+  buttonsRight?: React.ReactNode;
 
   // TODO: Document
   verbose?: boolean;
@@ -67,6 +71,8 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
     wrapProps,
     submitButtonProps,
     buttonCenter,
+    buttonsLeft,
+    buttonsRight,
     noWrap,
     verbose,
     ...rest
@@ -143,14 +149,18 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
                   </Flex>
                 )}
               >
-                <Button
-                  type="submit"
-                  disabled={ctx.formState.isSubmitting}
-                  colorScheme="blue"
-                  {...submitButtonProps}
-                >
-                  {submitText}
-                </Button>
+                <HStack>
+                  {buttonsLeft}
+                  <Button
+                    type="submit"
+                    disabled={ctx.formState.isSubmitting}
+                    colorScheme="blue"
+                    {...submitButtonProps}
+                  >
+                    {submitText}
+                  </Button>
+                  {buttonsRight}
+                </HStack>
               </ConditionalWrap>
             )}
           </>
