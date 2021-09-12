@@ -22,4 +22,4 @@ export { ReactSelectFieldProps } from './components/ReactSelect';
 export { InputLabelWrap } from './components/Wrapper';
 export { InputLabelWrapProps } from './components/Wrapper';
 
-export { formatForInputDate as formatForInput, formatForInputTime } from './utils/datetime';
+export { formatForInputDate, formatForInputTime } from './utils/datetime';

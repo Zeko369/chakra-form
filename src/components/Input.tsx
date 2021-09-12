@@ -71,7 +71,10 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, 
   // TODO: Handle this better
   const hfProps = register(baseName, {
     pattern: props.validationPattern,
-    // valueAsNumber: true
+
+    // valueAsDate: props.type === 'date',
+    // valueAsNumber: props.type === 'number',
+
     setValueAs: (val) => {
       if (!val) {
         return undefined;

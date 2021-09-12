@@ -7,6 +7,8 @@ import { z } from 'zod';
 import {
   CheckboxField,
   Form,
+  formatForInputTime,
+  formatForInputDate,
   InputField,
   ReactSelectField,
   SelectField,
@@ -59,6 +61,8 @@ const schema = z.object({
   job: z.string(),
   favLanguages: z.array(z.string()).nonempty(),
   isSingle: z.string(),
+  time: z.string(),
+  date: z.date(),
   interestedInLibrary: z.boolean(),
   interestedInLibrary1: z.boolean(),
   interestedInLibrary2: z.boolean(),
@@ -90,6 +94,8 @@ const Home: NextPage = () => {
         password: 'password',
         job: 'fs',
         isSingle: 'fs',
+        time: formatForInputTime(new Date()),
+        date: new Date(),
         favLanguages: ['js', 'ts'],
         interestedInLibrary: true,
         interestedInLibrary1: false
@@ -136,6 +142,9 @@ const Home: NextPage = () => {
             instanceId: 'single-id'
           }}
         />
+
+        <InputField name="time" type="time" />
+        <InputField name="date" type="date" />
 
         <CheckboxField
           name="interestedInLibrary"
