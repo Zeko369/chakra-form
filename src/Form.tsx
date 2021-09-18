@@ -47,6 +47,7 @@ export interface FormProps<S extends zAny>
 
   // TODO: Document
   verbose?: boolean;
+  clearOnSubmit?: boolean;
 }
 
 export interface OnSubmitResult {
@@ -75,6 +76,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
     buttonsRight,
     noWrap,
     verbose,
+    clearOnSubmit,
     ...rest
   } = props;
 
@@ -99,6 +101,10 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
 
   const internalOnSubmit = async (values: z.TypeOf<S>) => {
     const result = (await onSubmit(values)) || {};
+    if (Object.keys(result).length === 0 && clearOnSubmit) {
+      ctx.reset();
+    }
+
     for (const [key, value] of Object.entries(result)) {
       if (key === FORM_ERROR) {
         setFormError(value);
