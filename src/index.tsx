@@ -18,6 +18,7 @@ export { SelectProps, SelectProps as SelectFieldProps } from './components/Selec
 
 export { ReactSelectField } from './components/ReactSelect';
 export { ReactSelectFieldProps } from './components/ReactSelect';
+export { useReactSelectStyles } from './components/ReactSelect/useStyles';
 
 export { InputLabelWrap } from './components/Wrapper';
 export { InputLabelWrapProps } from './components/Wrapper';
