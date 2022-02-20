@@ -76,7 +76,10 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _r
       outerProps={{ isDisabled: formState.isSubmitting }}
       error={error}
       value={value}
-      onChange={(e) => setValue(baseName, e.target.value)}
+      onChange={(e) => {
+        setValue(baseName, e.target.value);
+        otherProps.onChange?.(e);
+      }}
     />
   );
 });

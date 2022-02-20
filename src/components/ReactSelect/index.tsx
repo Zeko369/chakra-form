@@ -48,8 +48,9 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>((props, r
       {!noLabel && <FormLabel htmlFor={name}>{label || capitalize(name)}</FormLabel>}
       <ReactSelect
         id={name}
-        {...reactSelectProps}
         {...styles}
+        {...reactSelectProps}
+        styles={{ ...styles.styles, ...reactSelectProps.styles }}
         isMulti={isSingle === true ? false : true} // by default is multi
         ref={ref}
         name={name}
