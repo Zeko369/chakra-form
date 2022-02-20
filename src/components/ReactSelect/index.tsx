@@ -50,7 +50,7 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>((props, r
         id={name}
         {...styles}
         {...reactSelectProps}
-        styles={{ ...styles.styles, ...reactSelectProps.styles }}
+        styles={{ ...styles.styles, ...reactSelectProps?.styles }}
         isMulti={isSingle === true ? false : true} // by default is multi
         ref={ref}
         name={name}
