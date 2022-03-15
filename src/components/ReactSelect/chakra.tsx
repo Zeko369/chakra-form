@@ -12,7 +12,7 @@ export interface StyledReactSelectProps {
   error?: string;
 
   value?: string | string[];
-  setValue?: (value: string | string[]) => void;
+  setValue?: (name: string, value: string | string[]) => void;
 
   options: { label: string; value: string }[];
   // FIXME: deprecate

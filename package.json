@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.6.1",
+    "chakra-form": "^0.3.7",
     "conditional-wrap": "^1.0.2"
   },
   "devDependencies": {
