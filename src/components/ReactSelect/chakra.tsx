@@ -17,7 +17,6 @@ export interface StyledReactSelectProps {
   options: { label: string; value: string }[];
   // FIXME: deprecate
   initialSelected?: string[];
-
   isRequired?: boolean;
 
   // TODO: Fix
@@ -36,7 +35,8 @@ export const StyledReactSelect = forwardRef<any, StyledReactSelectProps>((props,
     isRequired,
     reactSelectProps,
     error,
-    value
+    value,
+    setValue
   } = props;
   const styles = useReactSelectStyles(error);
 
@@ -65,8 +65,7 @@ export const StyledReactSelect = forwardRef<any, StyledReactSelectProps>((props,
           } else {
             // @ts-ignore
             // prettier-ignore
-            setValue(name, val.map((v) => v.value)
-            );
+            setValue(name, val.map((v) => v.value));
           }
         }}
       />
