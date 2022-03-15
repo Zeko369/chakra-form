@@ -37,5 +37,10 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>((props, r
       : errors[name]?.message || errors[name];
   }
 
-  return <StyledReactSelect ref={ref} {...{ ...props, error, value, setValue }} />;
+  return (
+    <StyledReactSelect
+      ref={ref}
+      {...{ ...props, error, value, setValue: (v) => setValue(name, v) }}
+    />
+  );
 });

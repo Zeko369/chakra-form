@@ -11,8 +11,11 @@ export interface StyledReactSelectProps {
   noLabel?: boolean;
   error?: string;
 
-  value?: string | string[];
-  setValue?: (name: string, value: string | string[]) => void;
+  // TODO: This is a shit api
+  forceValue?: any;
+
+  value: string | string[];
+  setValue: (value: string | string[]) => void;
 
   options: { label: string; value: string }[];
   // FIXME: deprecate
@@ -36,6 +39,7 @@ export const StyledReactSelect = forwardRef<any, StyledReactSelectProps>((props,
     reactSelectProps,
     error,
     value,
+    forceValue,
     setValue
   } = props;
   const styles = useReactSelectStyles(error);
@@ -52,20 +56,17 @@ export const StyledReactSelect = forwardRef<any, StyledReactSelectProps>((props,
         ref={ref}
         name={name}
         value={
-          isSingle
+          forceValue || isSingle
             ? options.find((o) => o.value === value)
             : options.filter((o) => Array.isArray(value) && value.includes(o.value))
         }
         options={options}
         onChange={(val) => {
           if (isSingle) {
-            // @ts-ignore
-            // prettier-ignore
-            setValue(name, val?.value);
+            setValue(val?.value as any);
           } else {
             // @ts-ignore
-            // prettier-ignore
-            setValue(name, val.map((v) => v.value));
+            setValue(val?.map((v) => v.value));
           }
         }}
       />
