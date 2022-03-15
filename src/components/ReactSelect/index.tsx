@@ -1,10 +1,7 @@
 import React, { forwardRef, useEffect } from 'react';
-import ReactSelect from 'react-select';
-import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
-import { capitalize } from '../../helpers/string';
-import { useReactSelectStyles } from './useStyles';
+import { StyledReactSelect } from './chakra';
 
 export interface ReactSelectFieldProps {
   name: string;
@@ -24,8 +21,7 @@ export interface ReactSelectFieldProps {
 }
 
 export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>((props, ref) => {
-  const { name, label, noLabel, options, isSingle, isRequired, reactSelectProps } = props;
-  let { error } = props;
+  let { error, name } = props;
 
   const { register, setValue, watch, formState } = useFormContext();
   const value = watch(name) || [];
@@ -41,36 +37,5 @@ export const ReactSelectField = forwardRef<any, ReactSelectFieldProps>((props, r
       : errors[name]?.message || errors[name];
   }
 
-  const styles = useReactSelectStyles(error);
-
-  return (
-    <FormControl isInvalid={!!error} isRequired={isRequired}>
-      {!noLabel && <FormLabel htmlFor={name}>{label || capitalize(name)}</FormLabel>}
-      <ReactSelect
-        id={name}
-        {...styles}
-        {...reactSelectProps}
-        styles={{ ...styles.styles, ...reactSelectProps?.styles }}
-        isMulti={isSingle === true ? false : true} // by default is multi
-        ref={ref}
-        name={name}
-        value={
-          isSingle
-            ? options.find((o) => o.value === value)
-            : options.filter((o) => value.includes(o.value))
-        }
-        options={options}
-        onChange={(val) => {
-          if (isSingle) {
-            setValue(name, val?.value);
-          } else {
-            // @ts-ignore
-            // prettier-ignore
-            setValue(name, val.map((v) => v.value));
-          }
-        }}
-      />
-      <FormErrorMessage>{error}</FormErrorMessage>
-    </FormControl>
-  );
+  return <StyledReactSelect ref={ref} {...{ ...props, error, value }} />;
 });
