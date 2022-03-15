@@ -2,7 +2,7 @@
   "name": "chakra-form",
   "description": "React hook form + chakra + react-select",
   "author": "Fran Zekan",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
