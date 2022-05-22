@@ -48,6 +48,7 @@ export interface FormProps<S extends zAny>
   // TODO: Document
   verbose?: boolean;
   clearOnSubmit?: boolean;
+  formMode?: UseFormProps['mode'];
 }
 
 export interface OnSubmitResult {
@@ -75,13 +76,14 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
     buttonsLeft,
     buttonsRight,
     noWrap,
+    formMode,
     verbose,
     clearOnSubmit,
     ...rest
   } = props;
 
   const ctx = useForm<z.infer<S>>({
-    mode: 'onBlur',
+    mode: formMode || 'onBlur',
     resolver: schema
       ? async (...args) => {
           const res = await zodResolver(schema)(...args);
