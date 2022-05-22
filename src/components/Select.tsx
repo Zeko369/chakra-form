@@ -1,5 +1,5 @@
-import React, { forwardRef, useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import React, { forwardRef, useEffect, useRef } from 'react';
+import { useFormContext, UseFormRegisterReturn } from 'react-hook-form';
 import {
   Select as ChakraSelect,
   SelectProps as ChakraSelectProps,
@@ -62,8 +62,9 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _r
   const { defaultValue, ...otherProps } = props;
   const value = watch(baseName) || defaultValue;
 
+  const ref = useRef<UseFormRegisterReturn>();
   useEffect(() => {
-    register(baseName);
+    ref.current = register(baseName);
     if (defaultValue) {
       setValue(baseName, defaultValue);
     }
@@ -76,6 +77,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _r
       outerProps={{ isDisabled: formState.isSubmitting }}
       error={error}
       value={value}
+      onBlur={ref.current?.onBlur}
       onChange={(e) => {
         setValue(baseName, e.target.value);
         otherProps.onChange?.(e);
