@@ -79,7 +79,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _r
       value={value}
       onBlur={ref.current?.onBlur}
       onChange={(e) => {
-        setValue(baseName, e.target.value);
+        ref.current?.onChange(e);
         otherProps.onChange?.(e);
       }}
     />
