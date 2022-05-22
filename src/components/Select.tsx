@@ -50,7 +50,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({ noLabel, ...
 });
 
 export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _ref) => {
-  const { register, watch, setValue, formState } = useFormContext();
+  const { register, watch, setValue, trigger, formState } = useFormContext();
   const baseName = props.name || 'Unknown name';
   const name = baseName.split('_').join(' ');
   const { errors } = formState;
@@ -81,9 +81,9 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _r
       value={value}
       onBlur={ref.current?.onBlur}
       onChange={(e) => {
-        ref.current?.onChange(e);
         otherProps.onChange?.(e);
         setValue(baseName, e.target.value);
+        trigger(baseName);
       }}
     />
   );
