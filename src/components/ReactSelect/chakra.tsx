@@ -44,6 +44,7 @@ export const StyledReactSelect = forwardRef<any, StyledReactSelectProps>((props,
   } = props;
   const styles = useReactSelectStyles(error);
 
+  // noinspection RedundantConditionalExpressionJS
   return (
     <FormControl isInvalid={!!error} isRequired={isRequired}>
       {!noLabel && <FormLabel htmlFor={name}>{label || capitalize(name)}</FormLabel>}

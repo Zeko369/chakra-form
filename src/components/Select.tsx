@@ -70,8 +70,6 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectProps>((props, _r
     }
   }, [baseName, setValue, register, defaultValue]);
 
-  console.log(ref.current);
-
   return (
     <Select
       {...otherProps}
