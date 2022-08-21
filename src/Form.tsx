@@ -49,6 +49,8 @@ export interface FormProps<S extends zAny>
   verbose?: boolean;
   clearOnSubmit?: boolean;
   formMode?: UseFormProps['mode'];
+
+  disableButtonOnWrongSchema?: boolean;
 }
 
 export interface OnSubmitResult {
@@ -78,6 +80,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
     noWrap,
     formMode,
     verbose,
+    disableButtonOnWrongSchema,
     clearOnSubmit,
     ...rest
   } = props;
@@ -162,6 +165,7 @@ const FormComponent = <S extends zAny>(props: FormProps<S>, ref: ForwardedRef<Fo
                   <Button
                     type="submit"
                     isLoading={ctx.formState.isSubmitting}
+                    isDisabled={disableButtonOnWrongSchema && !ctx.formState.isValid}
                     colorScheme="blue"
                     {...submitButtonProps}
                   >
